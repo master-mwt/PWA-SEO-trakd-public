@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pwa-app": {
+    "trakd": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,16 +13,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pwa-app",
+            "outputPath": "dist/trakd",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/hover.css/css/hover-min.css",
@@ -67,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "pwa-app:build"
+            "browserTarget": "trakd:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "pwa-app:build:production"
+              "browserTarget": "trakd:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pwa-app:build"
+            "browserTarget": "trakd:build"
           }
         },
         "test": {
@@ -88,13 +85,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         },
@@ -106,20 +98,18 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "pwa-app:serve"
+            "devServerTarget": "trakd:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "pwa-app:serve:production"
+              "devServerTarget": "trakd:serve:production"
             }
           }
         },
@@ -130,5 +120,5 @@
       }
     }
   },
-  "defaultProject": "pwa-app"
+  "defaultProject": "trakd"
 }
