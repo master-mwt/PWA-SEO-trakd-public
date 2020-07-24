@@ -1,0 +1,56 @@
+<div class="container py-4">
+  <div class="row mb-4 justify-content-center">
+    <div class="col rounded bg-dark text-light p-3 text-center">
+      <h5><fa-icon [icon]="faSServer" class="mr-2"></fa-icon>LOG</h5>
+      <div
+        id="log_container"
+        class="col rounded py-2"
+        style="background-color: #666666;"
+      >
+        <span id="log_status" class="font-weight-bold text-uppercase mr-2">{{
+          log_status
+        }}</span>
+        <span id="log_message">{{ log_message }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3 justify-content-center">
+    <div class="col rounded bg-secondary text-light p-3 text-center">
+      <h6>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, obcaecati
+        illo quaerat vero quod molestias reiciendis! Mollitia dolor sit
+        recusandae culpa, enim voluptate neque quasi nesciunt, dolorum sunt,
+        nisi qui!
+      </h6>
+    </div>
+  </div>
+  <div class="row mb-4 justify-content-center">
+    <input
+      id="file-upload"
+      accept="application/json"
+      type="file"
+      (change)="fileChanged($event)"
+    />
+    <button type="button" class="btn btn-dark" (click)="restore()">
+      <fa-icon class="mr-2" [icon]="faSFileUpload"></fa-icon>
+      import backup
+    </button>
+  </div>
+  <div class="row mb-3 justify-content-center">
+    <div class="col rounded bg-secondary text-light p-3 text-center">
+      <h6>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, obcaecati
+        illo quaerat vero quod molestias reiciendis! Mollitia dolor sit
+        recusandae culpa, enim voluptate neque quasi nesciunt, dolorum sunt,
+        nisi qui!
+      </h6>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <button type="button" class="btn btn-dark" (click)="backup()">
+      <fa-icon class="mr-2" [icon]="faSFileDownload"></fa-icon>
+      export backup
+    </button>
+  </div>
+</div>
