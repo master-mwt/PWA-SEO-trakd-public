@@ -9,6 +9,7 @@ import { TmdbService } from 'src/app/services/tmdb.service';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { Collection } from 'src/app/domain/Collection';
 import * as fuzzysort from 'fuzzysort';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-collection',
@@ -22,7 +23,9 @@ export class CollectionComponent implements OnInit {
 
   query: FormControl = new FormControl('');
 
-  constructor(private tmdbService: TmdbService) {}
+  constructor(private tmdbService: TmdbService, private title: Title) {
+    title.setTitle('Collection');
+  }
 
   ngOnInit(): void {
     this.initCollection();

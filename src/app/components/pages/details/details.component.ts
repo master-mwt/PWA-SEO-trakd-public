@@ -16,6 +16,7 @@ import { Character } from 'src/app/domain/Character';
 import { Collection } from 'src/app/domain/Collection';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { TvShowDetails } from 'src/app/domain/TvShowDetails';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-details',
@@ -33,7 +34,8 @@ export class DetailsComponent implements OnInit {
     private router: Router,
     private location: Location,
     private TmdbService: TmdbService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,9 @@ export class DetailsComponent implements OnInit {
     this.TmdbService.getTvShowDetails(tv_show_id).subscribe((res) => {
       //name
       if (!res.name) res.name = '---';
+
+      this.title.setTitle(res.name);
+
       //backdrop_path
       if (res.backdrop_path) {
         res.backdrop_path =

@@ -8,6 +8,7 @@ import {
   faServer as faSServer,
 } from '@fortawesome/free-solid-svg-icons';
 import { Collection } from 'src/app/domain/Collection';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-backup',
@@ -18,7 +19,9 @@ export class BackupComponent implements OnInit {
   log_status: string = 'waiting';
   log_message: string = 'idle';
 
-  constructor() {}
+  constructor(private title: Title) {
+    title.setTitle('Backup');
+  }
 
   ngOnInit(): void {}
 
