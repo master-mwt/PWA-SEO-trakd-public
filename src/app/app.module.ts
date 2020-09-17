@@ -17,6 +17,7 @@ import { CollectionComponent } from './components/pages/collection/collection.co
 import { EpisodeComponent } from './components/pages/episode/episode.component';
 import { BackupComponent } from './components/pages/backup/backup.component';
 import { GenresComponent } from './components/pages/genres/genres.component';
+import { InfoComponent } from './components/pages/info/info.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { GenresComponent } from './components/pages/genres/genres.component';
     EpisodeComponent,
     BackupComponent,
     GenresComponent,
+    InfoComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { DetailsComponent } from './components/pages/details/details.component';
 import { SeasonComponent } from './components/pages/season/season.component';
 import { CollectionComponent } from './components/pages/collection/collection.component';
 import { GenresComponent } from './components/pages/genres/genres.component';
+import { InfoComponent } from './components/pages/info/info.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'explore/popular', pathMatch: 'full' },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'genres', component: GenresComponent },
   { path: 'collection', component: CollectionComponent },
   { path: 'backup', component: BackupComponent },
+  { path: 'info', component: InfoComponent },
   { path: '**', component: NotfoundComponent },
 ];
 
