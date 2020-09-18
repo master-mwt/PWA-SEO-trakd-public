@@ -9,6 +9,7 @@ import {
 import { TmdbService } from 'src/app/services/tmdb.service';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { Collection } from 'src/app/domain/Collection';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search',
@@ -31,7 +32,9 @@ export class SearchComponent implements OnInit {
 
   lastResultReached: boolean = true;
 
-  constructor(private tmdbService: TmdbService) {}
+  constructor(private tmdbService: TmdbService, private title: Title) {
+    this.title.setTitle('Search your favourites tvshows');
+  }
 
   ngOnInit(): void {
     this.initCollection();

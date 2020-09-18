@@ -57,7 +57,9 @@ export class DetailsComponent implements OnInit {
       //name
       if (!res.name) res.name = '---';
 
-      this.title.setTitle(res.name);
+      this.title.setTitle(
+        'See info, rating, cast, seasons and episodes for ' + res.name
+      );
 
       //backdrop_path
       if (res.backdrop_path) {

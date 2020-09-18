@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-genres',
@@ -44,8 +45,13 @@ export class GenresComponent implements OnInit {
   lastResultReached: boolean = true;
   navigation = null;
 
-  constructor(private tmdbService: TmdbService, private router: Router) {
+  constructor(
+    private tmdbService: TmdbService,
+    private router: Router,
+    private title: Title
+  ) {
     this.navigation = this.router.getCurrentNavigation();
+    this.title.setTitle('Search your favourites tvshows by genre');
   }
 
   ngOnInit(): void {

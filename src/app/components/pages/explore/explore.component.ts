@@ -8,6 +8,7 @@ import {
 import { TmdbService } from 'src/app/services/tmdb.service';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { Collection } from 'src/app/domain/Collection';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-explore',
@@ -26,7 +27,13 @@ export class ExploreComponent implements OnInit {
   tvShowDict: Collection = null;
   lastResultReached: boolean = true;
 
-  constructor(private router: Router, private tmdbService: TmdbService) {}
+  constructor(
+    private router: Router,
+    private tmdbService: TmdbService,
+    private title: Title
+  ) {
+    this.title.setTitle('Explore popular and top rated tvshows');
+  }
 
   ngOnInit(): void {
     let parsedUrl = this.router.parseUrl(this.router.url);

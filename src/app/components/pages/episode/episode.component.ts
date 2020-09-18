@@ -14,6 +14,7 @@ import {
 import { TmdbService } from 'src/app/services/tmdb.service';
 import { Collection } from 'src/app/domain/Collection';
 import { Episode } from 'src/app/domain/Episode';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-episode',
@@ -27,7 +28,8 @@ export class EpisodeComponent implements OnInit {
   constructor(
     private router: Router,
     private location: Location,
-    private TmdbService: TmdbService
+    private TmdbService: TmdbService,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +50,9 @@ export class EpisodeComponent implements OnInit {
       res.tv_show_id = tv_show_id;
       //name
       if (!res.name) res.name = '---';
+
+      this.title.setTitle('See info and rating for episode ' + res.name);
+
       //still_path
       if (res.still_path) {
         res.still_path =

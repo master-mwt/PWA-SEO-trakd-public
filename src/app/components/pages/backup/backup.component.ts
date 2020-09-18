@@ -20,7 +20,7 @@ export class BackupComponent implements OnInit {
   log_message: string = 'idle';
 
   constructor(private title: Title) {
-    title.setTitle('Backup');
+    title.setTitle('Backup your personal collection of tvshows');
   }
 
   ngOnInit(): void {}

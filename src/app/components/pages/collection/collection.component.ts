@@ -24,7 +24,7 @@ export class CollectionComponent implements OnInit {
   query: FormControl = new FormControl('');
 
   constructor(private tmdbService: TmdbService, private title: Title) {
-    title.setTitle('Collection');
+    title.setTitle('Browse your personal collection of tvshows');
   }
 
   ngOnInit(): void {
