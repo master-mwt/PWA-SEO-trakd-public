@@ -8,7 +8,7 @@
         (click)="goBack()"
       >
         <fa-icon class="mr-1" [icon]="faSArrowCircleLeft"></fa-icon>
-        back
+        {{ "back" | translate }}
       </a>
     </div>
   </div>
@@ -23,7 +23,7 @@
         (click)="markAllEpisodes(true)"
       >
         <fa-icon class="mr-1" [icon]="faSCheckCircle"></fa-icon>
-        mark all as seen
+        {{ "mark_all_as_seen" | translate }}
       </a>
       <a
         *ngIf="!tvShowDict[TvShowDetails.id]"
@@ -32,7 +32,7 @@
         role="button"
       >
         <fa-icon class="mr-1" [icon]="faSCheckCircle"></fa-icon>
-        mark all as seen
+        {{ "mark_all_as_seen" | translate }}
       </a>
       <a
         *ngIf="!!tvShowDict[TvShowDetails.id] && allEpisodesMarked"
@@ -42,7 +42,7 @@
         (click)="markAllEpisodes(false)"
       >
         <fa-icon class="mr-1" [icon]="faSCheckCircle"></fa-icon>
-        mark all as unseen
+        {{ "mark_all_as_unseen" | translate }}
       </a>
       <a
         *ngIf="!tvShowDict[TvShowDetails.id]"
@@ -52,7 +52,7 @@
         (click)="addToCollection()"
       >
         <fa-icon class="mr-1" [icon]="faPlusCircle"></fa-icon>
-        add to collection
+        {{ "add_to_collection" | translate }}
       </a>
       <a
         *ngIf="tvShowDict[TvShowDetails.id]"
@@ -62,7 +62,7 @@
         (click)="removeFromCollection()"
       >
         <fa-icon class="mr-1" [icon]="faMinusCircle"></fa-icon>
-        remove from collection
+        {{ "remove_from_collection" | translate }}
       </a>
     </div>
   </div>
@@ -90,54 +90,54 @@
   <div class="row mb-3">
     <div class="col mx-1">
       <div class="bg-secondary p-1 rounded text-center text-light">
-        <h6 class="m-0">info</h6>
+        <h6 class="m-0">{{ "info" | translate }}</h6>
       </div>
     </div>
   </div>
 
   <div class="row mb-3">
     <div class="col mx-1">
-      <table class="table rounded m-0 p-0" style="background-color: #dddddd;">
+      <table class="table rounded m-0 p-0" style="background-color: #dddddd">
         <tbody>
           <tr>
             <td class="border-0 font-weight-bold float-right">
-              overview
+              {{ "overview" | translate }}
             </td>
             <td class="border-0">{{ TvShowDetails.overview }}</td>
           </tr>
           <tr>
             <td class="border-0 font-weight-bold float-right">
-              status
+              {{ "status" | translate }}
             </td>
             <td class="border-0">{{ TvShowDetails.status }}</td>
           </tr>
           <tr>
             <td class="border-0 font-weight-bold float-right">
-              type
+              {{ "type" | translate }}
             </td>
             <td class="border-0">{{ TvShowDetails.type }}</td>
           </tr>
           <tr>
             <td class="border-0 font-weight-bold float-right">
-              seasons
+              {{ "seasons" | translate }}
             </td>
             <td class="border-0">
               {{ TvShowDetails.number_of_seasons }}
-              <span class="text-muted">seasons</span>
+              <span class="text-muted">{{ "seasons" | translate }}</span>
             </td>
           </tr>
           <tr>
             <td class="border-0 font-weight-bold float-right">
-              episodes
+              {{ "episodes" | translate }}
             </td>
             <td class="border-0">
               {{ TvShowDetails.number_of_episodes }}
-              <span class="text-muted">episodes</span>
+              <span class="text-muted">{{ "episodes" | translate }}</span>
             </td>
           </tr>
           <tr>
             <td class="border-0 font-weight-bold float-right">
-              genres
+              {{ "genres" | translate }}
             </td>
             <td class="border-0">
               <a
@@ -157,7 +157,7 @@
   <div class="row mb-3">
     <div class="col mx-1">
       <div class="bg-secondary p-1 rounded text-center text-light">
-        <h6 class="m-0">social</h6>
+        <h6 class="m-0">{{ "social" | translate }}</h6>
       </div>
     </div>
   </div>
@@ -165,26 +165,26 @@
   <div class="container px-1">
     <div
       class="col d-flex flex-row mb-3 rounded justify-content-around py-3"
-      style="background-color: #dddddd;"
+      style="background-color: #dddddd"
     >
       <div class="d-flex flex-column text-center hvr-bob">
         <h4 class="p-0 m-0 mb-2"><fa-icon [icon]="faSCrown"></fa-icon></h4>
-        <span class="text-muted">vote average</span>
+        <span class="text-muted">{{ "vote_average" | translate }}</span>
         <h6 class="p-0 m-0">{{ TvShowDetails.vote_average }} / 10</h6>
       </div>
       <div class="d-flex flex-column text-center hvr-bob">
         <h4 class="p-0 m-0 mb-2"><fa-icon [icon]="faSStream"></fa-icon></h4>
-        <span class="text-muted">popularity</span>
+        <span class="text-muted">{{ "popularity" | translate }}</span>
         <h6 class="p-0 m-0">{{ TvShowDetails.popularity }} %</h6>
       </div>
       <div class="d-flex flex-column text-center hvr-bob">
         <h4 class="p-0 m-0 mb-2"><fa-icon [icon]="faSTrophy"></fa-icon></h4>
-        <span class="text-muted">vote count</span>
+        <span class="text-muted">{{ "vote_count" | translate }}</span>
         <h6 class="p-0 m-0">{{ TvShowDetails.vote_count }}</h6>
       </div>
       <div class="d-flex flex-column text-center hvr-bob">
         <h4 class="p-0 m-0 mb-2"><fa-icon [icon]="faSFlagUsa"></fa-icon></h4>
-        <span class="text-muted">language</span>
+        <span class="text-muted">{{ "language" | translate }}</span>
         <h6 class="p-0 m-0">{{ TvShowDetails.original_language }}</h6>
       </div>
     </div>
@@ -193,7 +193,7 @@
   <div class="row mb-3">
     <div class="col mx-1">
       <div class="bg-secondary p-1 rounded text-center text-light">
-        <h6 class="m-0">seasons</h6>
+        <h6 class="m-0">{{ "seasons" | translate }}</h6>
       </div>
     </div>
   </div>
@@ -234,7 +234,7 @@
             <!-- temp progress bar -->
             <div
               class="progress mt-2"
-              style="height: 10px; background-color: #dddddd;"
+              style="height: 10px; background-color: #dddddd"
             >
               <div
                 id="progress_bar_{{ s.season_number }}"
@@ -251,7 +251,7 @@
   <div class="row mb-3">
     <div class="col mx-1">
       <div class="bg-secondary p-1 rounded text-center text-light">
-        <h6 class="m-0">cast</h6>
+        <h6 class="m-0">{{ "cast" | translate }}</h6>
       </div>
     </div>
   </div>
@@ -283,7 +283,7 @@
   <div class="row mb-3">
     <div class="col mx-1">
       <div class="bg-secondary p-1 rounded text-center text-light">
-        <h6 class="m-0">similar shows</h6>
+        <h6 class="m-0">{{ "similar_shows" | translate }}</h6>
       </div>
     </div>
   </div>

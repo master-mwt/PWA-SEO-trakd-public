@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   faArrowCircleLeft as faSArrowCircleLeft,
   faCheckCircle as faSCheckCircle,
@@ -16,13 +16,14 @@ import { Collection } from 'src/app/domain/Collection';
 import { Season } from 'src/app/domain/Season';
 import * as $ from 'jquery';
 import { Title } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-season',
   templateUrl: './season.component.html',
   styleUrls: ['./season.component.css'],
 })
-export class SeasonComponent implements OnInit {
+export class SeasonComponent implements OnInit, OnDestroy {
   Season: Season = null;
   tvShowDict: Collection = null;
   allEpisodesMarked: boolean = false;
@@ -31,12 +32,25 @@ export class SeasonComponent implements OnInit {
   totalEpisodes: number = null;
   propEpisodeCounter: number = null;
 
+  private langChangeSubscription: any;
+
   constructor(
     private router: Router,
     private location: Location,
     private TmdbService: TmdbService,
-    private title: Title
+    private title: Title,
+    private translate: TranslateService
   ) {}
+
+  private setTitle(res) {
+    if (this.translate.currentLang === 'it') {
+      this.title.setTitle(
+        'Guarda informazioni ed episodi della stagione ' + res.name
+      );
+    } else {
+      this.title.setTitle('See info and episodes for season ' + res.name);
+    }
+  }
 
   ngOnInit(): void {
     let parsedUrl = this.router.parseUrl(this.router.url);
@@ -46,6 +60,20 @@ export class SeasonComponent implements OnInit {
 
     this.initCollection();
 
+    this.downloadData(tv_show_id, season_number);
+
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(
+      (event: LangChangeEvent) => {
+        this.downloadData(tv_show_id, season_number);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.langChangeSubscription.unsubscribe();
+  }
+
+  private downloadData(tv_show_id, season_number) {
     this.TmdbService.getTvShowSeason(tv_show_id, season_number).subscribe(
       (res) => {
         //id
@@ -53,7 +81,7 @@ export class SeasonComponent implements OnInit {
         //name
         if (!res.name) res.name = '---';
 
-        this.title.setTitle('See info and episodes for season ' + res.name);
+        this.setTitle(res);
 
         //poster_path
         if (res.poster_path) {

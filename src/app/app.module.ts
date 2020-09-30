@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -18,6 +18,8 @@ import { EpisodeComponent } from './components/pages/episode/episode.component';
 import { BackupComponent } from './components/pages/backup/backup.component';
 import { GenresComponent } from './components/pages/genres/genres.component';
 import { InfoComponent } from './components/pages/info/info.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -41,8 +43,20 @@ import { InfoComponent } from './components/pages/info/info.component';
     HttpClientModule,
     InfiniteScrollModule,
     ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+// AOT compilation support
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

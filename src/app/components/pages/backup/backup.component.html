@@ -18,12 +18,7 @@
   <div class="row mb-3 justify-content-center">
     <div class="col rounded bg-secondary text-light p-3 text-center">
       <h6>
-        Click on the "import backup" button to synchronize your personal
-        collection. <br />
-        Select the backup file in json format that you previously exported and,
-        at the end of the upload, your collection will be synchronized. <br />
-        To export the backup file click on "export backup", wait for the file to
-        be saved and keep it on your computer.
+        {{ "backup_import_text" | translate }}
       </h6>
     </div>
   </div>
@@ -36,26 +31,20 @@
     />
     <button type="button" class="btn btn-dark" (click)="restore()">
       <fa-icon class="mr-2" [icon]="faSFileUpload"></fa-icon>
-      import backup
+      {{ "import_backup" | translate }}
     </button>
   </div>
   <div class="row mb-3 justify-content-center">
     <div class="col rounded bg-secondary text-light p-3 text-center">
       <h6>
-        click on the "export backup" button to save the status of your personal
-        collection. <br />
-        a file in json format will be generated that you can keep on your
-        computer. <br />
-        to import a backup file and re-synchronize your collection within the
-        application, click on the "import backup" button, select the previously
-        exported backup file and wait for the upload to finish.
+        {{ "backup_export_text" | translate }}
       </h6>
     </div>
   </div>
   <div class="row justify-content-center">
     <button type="button" class="btn btn-dark" (click)="backup()">
       <fa-icon class="mr-2" [icon]="faSFileDownload"></fa-icon>
-      export backup
+      {{ "export_backup" | translate }}
     </button>
   </div>
 </div>

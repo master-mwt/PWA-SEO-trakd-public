@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import * as $ from 'jquery';
 import * as _ from 'lodash';
@@ -9,21 +9,43 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Collection } from 'src/app/domain/Collection';
 import { Title } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-backup',
   templateUrl: './backup.component.html',
   styleUrls: ['./backup.component.css'],
 })
-export class BackupComponent implements OnInit {
+export class BackupComponent implements OnInit, OnDestroy {
   log_status: string = 'waiting';
   log_message: string = 'idle';
 
-  constructor(private title: Title) {
-    title.setTitle('Backup your personal collection of tvshows');
+  private langChangeSubscription: any;
+
+  constructor(private title: Title, private translate: TranslateService) {
+    this.setTitle();
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(
+      (event: LangChangeEvent) => {
+        this.setTitle();
+      }
+    );
+  }
+
+  private setTitle() {
+    if (this.translate.currentLang === 'it') {
+      this.title.setTitle(
+        'Fai il backup della tua collezione personale di serie tv'
+      );
+    } else {
+      this.title.setTitle('Backup your personal collection of tvshows');
+    }
   }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.langChangeSubscription.unsubscribe();
+  }
 
   backup(): void {
     let blob: Blob = new Blob([localStorage.getItem('collection')], {

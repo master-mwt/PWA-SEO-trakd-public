@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   faPlusCircle as faSPlusCircle,
@@ -9,13 +9,14 @@ import { TmdbService } from 'src/app/services/tmdb.service';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { Collection } from 'src/app/domain/Collection';
 import { Title } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.css'],
 })
-export class ExploreComponent implements OnInit {
+export class ExploreComponent implements OnInit, OnDestroy {
   tvShowPreviews: TvShowPreview[] = [];
   private page: number = 1;
   private maxPage: number;
@@ -27,12 +28,28 @@ export class ExploreComponent implements OnInit {
   tvShowDict: Collection = null;
   lastResultReached: boolean = true;
 
+  private langChangeSubscription: any;
+
   constructor(
     private router: Router,
     private tmdbService: TmdbService,
-    private title: Title
+    private title: Title,
+    private translate: TranslateService
   ) {
-    this.title.setTitle('Explore popular and top rated tvshows');
+    this.setTitle();
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(
+      (event: LangChangeEvent) => {
+        this.setTitle();
+      }
+    );
+  }
+
+  private setTitle() {
+    if (this.translate.currentLang === 'it') {
+      this.title.setTitle('Esplora le serie tv più popolari e le più votate');
+    } else {
+      this.title.setTitle('Explore popular and top rated tvshows');
+    }
   }
 
   ngOnInit(): void {
@@ -46,6 +63,10 @@ export class ExploreComponent implements OnInit {
     } else if (this.urlSection === 'explore,top_rated') {
       this.getTvShowTopRated();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.langChangeSubscription.unsubscribe();
   }
 
   private initCollection(): void {

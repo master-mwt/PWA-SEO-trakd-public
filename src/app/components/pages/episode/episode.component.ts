@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import {
   faArrowCircleLeft as faSArrowCircleLeft,
@@ -15,22 +15,36 @@ import { TmdbService } from 'src/app/services/tmdb.service';
 import { Collection } from 'src/app/domain/Collection';
 import { Episode } from 'src/app/domain/Episode';
 import { Title } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-episode',
   templateUrl: './episode.component.html',
   styleUrls: ['./episode.component.css'],
 })
-export class EpisodeComponent implements OnInit {
+export class EpisodeComponent implements OnInit, OnDestroy {
   Episode: Episode = null;
   tvShowDict: Collection = null;
+
+  private langChangeSubscription: any;
 
   constructor(
     private router: Router,
     private location: Location,
     private TmdbService: TmdbService,
-    private title: Title
+    private title: Title,
+    private translate: TranslateService
   ) {}
+
+  private setTitle(res) {
+    if (this.translate.currentLang === 'it') {
+      this.title.setTitle(
+        "Guarda informazioni e voti per l'episodio " + res.name
+      );
+    } else {
+      this.title.setTitle('See info and rating for episode ' + res.name);
+    }
+  }
 
   ngOnInit(): void {
     let parsedUrl = this.router.parseUrl(this.router.url);
@@ -41,6 +55,20 @@ export class EpisodeComponent implements OnInit {
 
     this.initCollection();
 
+    this.downloadData(tv_show_id, season_number, episode_number);
+
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(
+      (event: LangChangeEvent) => {
+        this.downloadData(tv_show_id, season_number, episode_number);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.langChangeSubscription.unsubscribe();
+  }
+
+  private downloadData(tv_show_id, season_number, episode_number) {
     this.TmdbService.getTvShowEpisode(
       tv_show_id,
       season_number,
@@ -51,7 +79,7 @@ export class EpisodeComponent implements OnInit {
       //name
       if (!res.name) res.name = '---';
 
-      this.title.setTitle('See info and rating for episode ' + res.name);
+      this.setTitle(res);
 
       //still_path
       if (res.still_path) {

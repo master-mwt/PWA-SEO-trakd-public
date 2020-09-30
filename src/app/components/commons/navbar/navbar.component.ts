@@ -11,7 +11,9 @@ import {
   faStar as faSStar,
   faTh as faSTh,
   faThList as faSThList,
+  faFlag as faSFlag,
 } from '@fortawesome/free-solid-svg-icons';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
@@ -31,8 +33,16 @@ export class NavbarComponent implements OnInit {
   faSStar = faSStar;
   faSTh = faSTh;
   faSThList = faSThList;
+  faSFlag = faSFlag;
 
-  constructor() {}
+  constructor(public translate: TranslateService) {
+    translate.addLangs(['en', 'it']);
+    translate.use(translate.getBrowserLang() === 'it' ? 'it' : 'en');
+  }
 
   ngOnInit(): void {}
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
+  }
 }

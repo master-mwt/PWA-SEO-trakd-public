@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {
   faSearch as faSSearch,
@@ -10,13 +10,14 @@ import { TmdbService } from 'src/app/services/tmdb.service';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { Collection } from 'src/app/domain/Collection';
 import { Title } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   tvShowPreviews: TvShowPreview[] = [];
 
   queryForm = new FormGroup({
@@ -32,12 +33,35 @@ export class SearchComponent implements OnInit {
 
   lastResultReached: boolean = true;
 
-  constructor(private tmdbService: TmdbService, private title: Title) {
-    this.title.setTitle('Search your favourites tvshows');
+  private langChangeSubscription: any;
+
+  constructor(
+    private tmdbService: TmdbService,
+    private title: Title,
+    private translate: TranslateService
+  ) {
+    this.setTitle();
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(
+      (event: LangChangeEvent) => {
+        this.setTitle();
+      }
+    );
+  }
+
+  private setTitle() {
+    if (this.translate.currentLang === 'it') {
+      this.title.setTitle('Cerca le tue serie tv preferite');
+    } else {
+      this.title.setTitle('Search your favourites tvshows');
+    }
   }
 
   ngOnInit(): void {
     this.initCollection();
+  }
+
+  ngOnDestroy(): void {
+    this.langChangeSubscription.unsubscribe();
   }
 
   search(): void {

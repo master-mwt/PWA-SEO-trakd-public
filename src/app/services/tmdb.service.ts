@@ -11,6 +11,7 @@ import { TvShowCredits } from '../domain/TvShowCredits';
 import { SortingTypes } from '../domain/SortingTypes';
 import { Genre } from '../domain/Genre';
 import { GenreResult } from '../domain/GenreResult';
+import { TranslateService } from '@ngx-translate/core';
 
 const API_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '609fbad41366e27a4f7a58d8d1760a3b';
@@ -19,7 +20,15 @@ const API_KEY = '609fbad41366e27a4f7a58d8d1760a3b';
   providedIn: 'root',
 })
 export class TmdbService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private translate: TranslateService) {}
+
+  private getLang() {
+    if (this.translate.currentLang === 'it') {
+      return 'it-IT';
+    } else {
+      return 'en-US';
+    }
+  }
 
   /**
    * Get the detail of a TvShow
@@ -28,7 +37,12 @@ export class TmdbService {
    */
   getTvShowDetails(tvShowID: number): Observable<TvShowDetails> {
     let link: string =
-      API_URL + 'tv/' + tvShowID + '?api_key=' + API_KEY + '&language=en-US';
+      API_URL +
+      'tv/' +
+      tvShowID +
+      '?api_key=' +
+      API_KEY +
+      `&language=${this.getLang()}`;
     return this.http
       .get<TvShowDetails>(link)
       .pipe(retry(3), catchError(this.handleError));
@@ -45,7 +59,7 @@ export class TmdbService {
       'tv/popular' +
       '?api_key=' +
       API_KEY +
-      '&language=en-US' +
+      `&language=${this.getLang()}` +
       '&page=' +
       page;
     return this.http
@@ -64,7 +78,7 @@ export class TmdbService {
       'tv/top_rated' +
       '?api_key=' +
       API_KEY +
-      '&language=en-US' +
+      `&language=${this.getLang()}` +
       '&page=' +
       page;
     return this.http
@@ -89,7 +103,7 @@ export class TmdbService {
       '/similar' +
       '?api_key=' +
       API_KEY +
-      '&language=en-US' +
+      `&language=${this.getLang()}` +
       '&page=' +
       page;
     return this.http
@@ -112,7 +126,7 @@ export class TmdbService {
       seasonNumber +
       '?api_key=' +
       API_KEY +
-      '&language=en-US';
+      `&language=${this.getLang()}`;
     return this.http
       .get<Season>(link)
       .pipe(retry(3), catchError(this.handleError));
@@ -140,7 +154,7 @@ export class TmdbService {
       episodeNumber +
       '?api_key=' +
       API_KEY +
-      '&language=en-US';
+      `&language=${this.getLang()}`;
     return this.http
       .get<Episode>(link)
       .pipe(retry(3), catchError(this.handleError));
@@ -159,7 +173,7 @@ export class TmdbService {
       '/credits' +
       '?api_key=' +
       API_KEY +
-      '&language=en-US';
+      `&language=${this.getLang()}`;
     return this.http
       .get<TvShowCredits>(link)
       .pipe(retry(3), catchError(this.handleError));
@@ -181,7 +195,7 @@ export class TmdbService {
       query +
       '&page=' +
       page +
-      '&language=en-US';
+      `&language=${this.getLang()}`;
     return this.http
       .get<PageResult>(link)
       .pipe(retry(3), catchError(this.handleError));
@@ -210,7 +224,7 @@ export class TmdbService {
       sortBy +
       '&page=' +
       page +
-      '&language=en-US';
+      `&language=${this.getLang()}`;
     return this.http
       .get<PageResult>(link)
       .pipe(retry(3), catchError(this.handleError));
@@ -221,7 +235,11 @@ export class TmdbService {
    */
   getGenres(): Observable<GenreResult> {
     let link: string =
-      API_URL + 'genre/tv/list' + '?api_key=' + API_KEY + '&language=en-US';
+      API_URL +
+      'genre/tv/list' +
+      '?api_key=' +
+      API_KEY +
+      `&language=${this.getLang()}`;
     return this.http
       .get<GenreResult>(link)
       .pipe(retry(3), catchError(this.handleError));

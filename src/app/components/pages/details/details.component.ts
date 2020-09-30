@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import {
   faArrowCircleLeft as faSArrowCircleLeft,
@@ -17,26 +17,43 @@ import { Collection } from 'src/app/domain/Collection';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { TvShowDetails } from 'src/app/domain/TvShowDetails';
 import { Title } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { event } from 'jquery';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
   TvShowDetails: TvShowDetails = null;
   Cast: Character[] = [];
   tvShowPreviews: TvShowPreview[] = [];
   tvShowDict: Collection = null;
   allEpisodesMarked: boolean = false;
 
+  private langChangeSubscription: any;
+
   constructor(
     private router: Router,
     private location: Location,
     private TmdbService: TmdbService,
     private activeRoute: ActivatedRoute,
-    private title: Title
+    private title: Title,
+    private translate: TranslateService
   ) {}
+
+  private setTitle(res) {
+    if (this.translate.currentLang === 'it') {
+      this.title.setTitle(
+        'Guarda informazioni, voti, cast, stagioni ed episodi per ' + res.name
+      );
+    } else {
+      this.title.setTitle(
+        'See info, rating, cast, seasons and episodes for ' + res.name
+      );
+    }
+  }
 
   ngOnInit(): void {
     let parsedUrl = this.router.parseUrl(this.router.url);
@@ -53,13 +70,25 @@ export class DetailsComponent implements OnInit {
       }
     });
 
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(
+      (event: LangChangeEvent) => {
+        this.downloadData(tv_show_id);
+      }
+    );
+
+    this.downloadData(tv_show_id);
+  }
+
+  ngOnDestroy(): void {
+    this.langChangeSubscription.unsubscribe();
+  }
+
+  private downloadData(tv_show_id) {
     this.TmdbService.getTvShowDetails(tv_show_id).subscribe((res) => {
       //name
       if (!res.name) res.name = '---';
 
-      this.title.setTitle(
-        'See info, rating, cast, seasons and episodes for ' + res.name
-      );
+      this.setTitle(res);
 
       //backdrop_path
       if (res.backdrop_path) {

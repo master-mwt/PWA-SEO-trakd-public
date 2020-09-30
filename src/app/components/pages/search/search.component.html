@@ -18,7 +18,7 @@
         <input
           class="form-control text-light text-dark search-input-group-bar"
           type="text"
-          placeholder="search"
+          placeholder="{{ 'search' | translate }}"
           aria-label="search"
           formControlName="query"
         />
@@ -66,7 +66,7 @@
   >
     <button class="btn btn-primary" (click)="loadMoreOnButtonPressed()">
       <fa-icon class="mr-2" [icon]="faSStream"></fa-icon>
-      load more
+      {{ "load_more" | translate }}
     </button>
   </div>
 </div>

@@ -37,7 +37,7 @@
             aria-expanded="false"
           >
             <fa-icon [icon]="faSCompass" class="mr-1"></fa-icon>
-            explore
+            {{ "navbar_explore" | translate }}
           </a>
           <div
             class="dropdown-menu bg-dark border-0"
@@ -45,11 +45,11 @@
           >
             <a class="dropdown-item" [routerLink]="['explore/popular']">
               <fa-icon [icon]="faSTrophy" class="mr-1"></fa-icon>
-              popular
+              {{ "navbar_popular" | translate }}
             </a>
             <a class="dropdown-item" [routerLink]="['explore/top_rated']">
               <fa-icon [icon]="faSStar" class="mr-1"></fa-icon>
-              top rated
+              {{ "navbar_top_rated" | translate }}
             </a>
           </div>
         </li>
@@ -63,7 +63,7 @@
             aria-expanded="false"
           >
             <fa-icon [icon]="faSSearch" class="mr-1"></fa-icon>
-            search
+            {{ "navbar_search" | translate }}
           </a>
           <div
             class="dropdown-menu bg-dark border-0"
@@ -71,18 +71,18 @@
           >
             <a class="dropdown-item" [routerLink]="['search']">
               <fa-icon [icon]="faSThList" class="mr-1"></fa-icon>
-              by name
+              {{ "navbar_search_by_name" | translate }}
             </a>
             <a class="dropdown-item" [routerLink]="['genres']">
               <fa-icon [icon]="faSTh" class="mr-1"></fa-icon>
-              by genre
+              {{ "navbar_search_by_genre" | translate }}
             </a>
           </div>
         </li>
         <li class="nav-item">
           <a [routerLink]="['collection']" class="nav-link">
             <fa-icon [icon]="faSHeart" class="mr-1"></fa-icon>
-            collection
+            {{ "navbar_collection" | translate }}
           </a>
         </li>
       </ul>
@@ -90,14 +90,48 @@
         <li class="nav-item">
           <a [routerLink]="['backup']" class="nav-link">
             <fa-icon [icon]="faSSave" class="mr-1"></fa-icon>
-            backup
+            {{ "navbar_backup" | translate }}
           </a>
         </li>
         <li class="nav-item">
           <a [routerLink]="['info']" class="nav-link">
             <fa-icon [icon]="faSInfoCircle" class="mr-1"></fa-icon>
-            info
+            {{ "navbar_info" | translate }}
           </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="lang_dropdown_menu"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <fa-icon [icon]="faSFlag" class="mr-1"></fa-icon>
+            lang
+          </a>
+          <div
+            class="dropdown-menu bg-dark border-0"
+            aria-labelledby="lang_dropdown_menu"
+          >
+            <a
+              (click)="switchLang('it')"
+              href="javascript:void(0)"
+              class="dropdown-item"
+            >
+              <fa-icon [icon]="faSFlag" class="mr-1"></fa-icon>
+              ita
+            </a>
+            <a
+              (click)="switchLang('en')"
+              href="javascript:void(0)"
+              class="dropdown-item"
+            >
+              <fa-icon [icon]="faSFlag" class="mr-1"></fa-icon>
+              eng
+            </a>
+          </div>
         </li>
       </ul>
     </div>

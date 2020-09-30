@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TmdbService } from 'src/app/services/tmdb.service';
 import { Genre } from 'src/app/domain/Genre';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
@@ -13,13 +13,14 @@ import {
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-genres',
   templateUrl: './genres.component.html',
   styleUrls: ['./genres.component.css'],
 })
-export class GenresComponent implements OnInit {
+export class GenresComponent implements OnInit, OnDestroy {
   genres: Genre[] = [];
   sortingTypes: { value: string; name: string }[] = [
     { value: SortingTypes.POPULARITY_DESC, name: 'Popularity desc' },
@@ -45,18 +46,44 @@ export class GenresComponent implements OnInit {
   lastResultReached: boolean = true;
   navigation = null;
 
+  private langChangeSubscription: any;
+
   constructor(
     private tmdbService: TmdbService,
     private router: Router,
-    private title: Title
+    private title: Title,
+    private translate: TranslateService
   ) {
     this.navigation = this.router.getCurrentNavigation();
-    this.title.setTitle('Search your favourites tvshows by genre');
+    this.setTitle();
+  }
+
+  private setTitle() {
+    if (this.translate.currentLang === 'it') {
+      this.title.setTitle('Cerca le tue serie tv preferite per genere');
+    } else {
+      this.title.setTitle('Search your favourites tvshows by genre');
+    }
   }
 
   ngOnInit(): void {
     this.initCollection();
 
+    this.downloadData();
+
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(
+      (event: LangChangeEvent) => {
+        this.setTitle();
+        this.downloadData();
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.langChangeSubscription.unsubscribe();
+  }
+
+  private downloadData() {
     this.tmdbService.getGenres().subscribe((res) => {
       if (res.genres) {
         this.genres = res.genres;

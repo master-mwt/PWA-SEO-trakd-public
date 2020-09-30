@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   faSearch as faSSearch,
   faPlusCircle as faSPlusCircle,
@@ -10,27 +10,54 @@ import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { Collection } from 'src/app/domain/Collection';
 import * as fuzzysort from 'fuzzysort';
 import { Title } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.css'],
 })
-export class CollectionComponent implements OnInit {
+export class CollectionComponent implements OnInit, OnDestroy {
   tvShows: TvShowPreview[] = [];
   tvShowsAllResults: TvShowPreview[] = [];
   tvShowDict: Collection = null;
 
   query: FormControl = new FormControl('');
 
-  constructor(private tmdbService: TmdbService, private title: Title) {
-    title.setTitle('Browse your personal collection of tvshows');
+  private langChangeSubscription: any;
+
+  constructor(
+    private tmdbService: TmdbService,
+    private title: Title,
+    private translate: TranslateService
+  ) {
+    this.setTitle();
   }
 
   ngOnInit(): void {
     this.initCollection();
     this.refreshCollection();
     this.searchInit();
+
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(
+      (event: LangChangeEvent) => {
+        this.setTitle();
+        this.refreshCollection();
+        this.searchInit();
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.langChangeSubscription.unsubscribe();
+  }
+
+  private setTitle() {
+    if (this.translate.currentLang === 'it') {
+      this.title.setTitle('Naviga la tua personale collezione di serie tv');
+    } else {
+      this.title.setTitle('Browse your personal collection of tvshows');
+    }
   }
 
   private initCollection(): void {
