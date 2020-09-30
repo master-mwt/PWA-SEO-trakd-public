@@ -99,6 +99,45 @@
             {{ "navbar_info" | translate }}
           </a>
         </li>
+
+        <li class="nav-item">
+          <a
+            *ngIf="this.translate.currentLang === 'en'"
+            (click)="switchLang('it')"
+            href="javascript:void()"
+            class="nav-link"
+          >
+            ITA
+          </a>
+          <a
+            *ngIf="this.translate.currentLang === 'it'"
+            (click)="switchLang('it')"
+            href="javascript:void()"
+            class="nav-link active"
+          >
+            ITA
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            *ngIf="this.translate.currentLang === 'it'"
+            (click)="switchLang('en')"
+            href="javascript:void()"
+            class="nav-link"
+          >
+            ENG
+          </a>
+          <a
+            *ngIf="this.translate.currentLang === 'en'"
+            (click)="switchLang('en')"
+            href="javascript:void()"
+            class="nav-link active"
+          >
+            ENG
+          </a>
+        </li>
+
+        <!--
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -133,6 +172,7 @@
             </a>
           </div>
         </li>
+        -->
       </ul>
     </div>
   </div>
