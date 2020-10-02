@@ -104,18 +104,19 @@
           <a
             *ngIf="this.translate.currentLang === 'en'"
             (click)="switchLang('it')"
-            href="javascript:void()"
+            href="javascript:void(0)"
             class="nav-link"
+            style="opacity: 0.5"
           >
-            ITA
+            <span class="flag-icon flag-icon-it"></span>
           </a>
           <a
             *ngIf="this.translate.currentLang === 'it'"
             (click)="switchLang('it')"
-            href="javascript:void()"
+            href="javascript:void(0)"
             class="nav-link active"
           >
-            ITA
+            <span class="flag-icon flag-icon-it"></span>
           </a>
         </li>
         <li class="nav-item">
@@ -125,7 +126,7 @@
             href="javascript:void()"
             class="nav-link"
           >
-            ENG
+            <span style="opacity: 0.5" class="flag-icon flag-icon-gb"></span>
           </a>
           <a
             *ngIf="this.translate.currentLang === 'en'"
@@ -133,7 +134,7 @@
             href="javascript:void()"
             class="nav-link active"
           >
-            ENG
+            <span class="flag-icon flag-icon-gb"></span>
           </a>
         </li>
 
