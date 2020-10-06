@@ -16,7 +16,7 @@ import { Character } from 'src/app/domain/Character';
 import { Collection } from 'src/app/domain/Collection';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { TvShowDetails } from 'src/app/domain/TvShowDetails';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { event } from 'jquery';
 
@@ -40,18 +40,31 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private TmdbService: TmdbService,
     private activeRoute: ActivatedRoute,
     private title: Title,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private meta: Meta
   ) {}
 
-  private setTitle(res) {
+  private setTitleAndDescription(res: TvShowDetails) {
     if (this.translate.currentLang === 'it') {
       this.title.setTitle(
-        'Guarda informazioni, voti, cast, stagioni ed episodi per ' + res.name
+        'Trova informazioni, voti, cast, stagioni ed episodi di ' + res.name
       );
+      this.meta.updateTag({
+        name: 'description',
+        content: `Trova informazioni, voti, cast, stagioni ed episodi della serie tv ${
+          res.name
+        }. ${res.overview ? res.overview : ''}`,
+      });
     } else {
       this.title.setTitle(
-        'See info, rating, cast, seasons and episodes for ' + res.name
+        'Find info, ratings, cast, seasons and episodes of ' + res.name
       );
+      this.meta.updateTag({
+        name: 'description',
+        content: `Find info, ratings, cast, seasons and episodes of tv show ${
+          res.name
+        }. ${res.overview ? res.overview : ''}`,
+      });
     }
   }
 
@@ -88,7 +101,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       //name
       if (!res.name) res.name = '---';
 
-      this.setTitle(res);
+      this.setTitleAndDescription(res);
 
       //backdrop_path
       if (res.backdrop_path) {

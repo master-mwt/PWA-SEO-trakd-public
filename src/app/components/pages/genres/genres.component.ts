@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -52,17 +52,28 @@ export class GenresComponent implements OnInit, OnDestroy {
     private tmdbService: TmdbService,
     private router: Router,
     private title: Title,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private meta: Meta
   ) {
     this.navigation = this.router.getCurrentNavigation();
-    this.setTitle();
+    this.setTitleAndDescription();
   }
 
-  private setTitle() {
+  private setTitleAndDescription() {
     if (this.translate.currentLang === 'it') {
       this.title.setTitle('Cerca le tue serie tv preferite per genere');
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Cerca le tue serie tv preferite per genere. Guarda informazioni sullo show, cast, stagioni ed episodi.',
+      });
     } else {
       this.title.setTitle('Search your favourites tvshows by genre');
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Search your favourites tvshows by genre. Watch informations about the show, cast, seasons and episodes.',
+      });
     }
   }
 
@@ -73,7 +84,7 @@ export class GenresComponent implements OnInit, OnDestroy {
 
     this.langChangeSubscription = this.translate.onLangChange.subscribe(
       (event: LangChangeEvent) => {
-        this.setTitle();
+        this.setTitleAndDescription();
         this.downloadData();
       }
     );

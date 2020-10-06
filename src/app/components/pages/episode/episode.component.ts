@@ -14,7 +14,7 @@ import {
 import { TmdbService } from 'src/app/services/tmdb.service';
 import { Collection } from 'src/app/domain/Collection';
 import { Episode } from 'src/app/domain/Episode';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -28,21 +28,42 @@ export class EpisodeComponent implements OnInit, OnDestroy {
 
   private langChangeSubscription: any;
 
+  tvShowName: String = '';
+
   constructor(
     private router: Router,
     private location: Location,
     private TmdbService: TmdbService,
     private title: Title,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private meta: Meta
   ) {}
 
-  private setTitle(res) {
+  private setTitleAndDescription(res: Episode) {
     if (this.translate.currentLang === 'it') {
       this.title.setTitle(
-        "Guarda informazioni e voti per l'episodio " + res.name
+        `Trova informazioni e voti per l'episodio ${res.name} ${
+          this.tvShowName !== '' ? 'di ' + this.tvShowName : ''
+        }`
       );
+      this.meta.updateTag({
+        name: 'description',
+        content: `Trova informazioni e voti sull'episodio ${res.name}${
+          this.tvShowName !== '' ? ' della serie tv ' + this.tvShowName : ''
+        }. ${res.overview ? res.overview : ''}`,
+      });
     } else {
-      this.title.setTitle('See info and rating for episode ' + res.name);
+      this.title.setTitle(
+        `Find info and ratings for episode ${res.name} ${
+          this.tvShowName !== '' ? 'of ' + this.tvShowName : ''
+        }`
+      );
+      this.meta.updateTag({
+        name: 'description',
+        content: `Find info and ratings for episode ${res.name}${
+          this.tvShowName !== '' ? ' of tv show ' + this.tvShowName : ''
+        }. ${res.overview ? res.overview : ''}`,
+      });
     }
   }
 
@@ -69,6 +90,10 @@ export class EpisodeComponent implements OnInit, OnDestroy {
   }
 
   private downloadData(tv_show_id, season_number, episode_number) {
+    this.TmdbService.getTvShowDetails(tv_show_id).subscribe((res) => {
+      this.tvShowName = res.name;
+    });
+
     this.TmdbService.getTvShowEpisode(
       tv_show_id,
       season_number,
@@ -79,7 +104,7 @@ export class EpisodeComponent implements OnInit, OnDestroy {
       //name
       if (!res.name) res.name = '---';
 
-      this.setTitle(res);
+      this.setTitleAndDescription(res);
 
       //still_path
       if (res.still_path) {

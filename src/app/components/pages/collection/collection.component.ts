@@ -9,7 +9,7 @@ import { TmdbService } from 'src/app/services/tmdb.service';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { Collection } from 'src/app/domain/Collection';
 import * as fuzzysort from 'fuzzysort';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -29,9 +29,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
   constructor(
     private tmdbService: TmdbService,
     private title: Title,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private meta: Meta
   ) {
-    this.setTitle();
+    this.setTitleAndDescription();
   }
 
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
     this.langChangeSubscription = this.translate.onLangChange.subscribe(
       (event: LangChangeEvent) => {
-        this.setTitle();
+        this.setTitleAndDescription();
         this.refreshCollection();
         this.searchInit();
       }
@@ -52,11 +53,21 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.langChangeSubscription.unsubscribe();
   }
 
-  private setTitle() {
+  private setTitleAndDescription() {
     if (this.translate.currentLang === 'it') {
       this.title.setTitle('Naviga la tua personale collezione di serie tv');
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Naviga la tua personale collezione di serie tv. La collezione contiene le serie tv che hai segnato come tue preferite.',
+      });
     } else {
       this.title.setTitle('Browse your personal collection of tvshows');
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Browse your personal collection of tvshows. The collection contains all the tv shows marked by you as your favourites.',
+      });
     }
   }
 

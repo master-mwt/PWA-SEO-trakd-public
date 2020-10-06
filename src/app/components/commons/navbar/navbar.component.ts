@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   faBars as faSBars,
   faCompass as faSCompass,
@@ -14,6 +14,7 @@ import {
   faFlag as faSFlag,
 } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -35,14 +36,20 @@ export class NavbarComponent implements OnInit {
   faSThList = faSThList;
   faSFlag = faSFlag;
 
-  constructor(public translate: TranslateService) {
+  constructor(
+    public translate: TranslateService,
+    @Inject(DOCUMENT) private document: Document
+  ) {
     translate.addLangs(['en', 'it']);
     translate.use(translate.getBrowserLang() === 'it' ? 'it' : 'en');
+    this.document.documentElement.lang =
+      translate.currentLang === 'it' ? 'it' : 'en';
   }
 
   ngOnInit(): void {}
 
   switchLang(lang: string) {
     this.translate.use(lang);
+    this.document.documentElement.lang = lang;
   }
 }

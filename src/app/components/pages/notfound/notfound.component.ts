@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-notfound',
@@ -7,8 +7,12 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./notfound.component.css'],
 })
 export class NotfoundComponent implements OnInit {
-  constructor(private title: Title) {
+  constructor(private title: Title, private meta: Meta) {
     this.title.setTitle('Trakd');
+    this.meta.updateTag({
+      name: 'description',
+      content: '',
+    });
   }
 
   ngOnInit(): void {}

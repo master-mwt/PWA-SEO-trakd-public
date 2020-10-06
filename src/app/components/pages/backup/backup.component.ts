@@ -8,7 +8,7 @@ import {
   faServer as faSServer,
 } from '@fortawesome/free-solid-svg-icons';
 import { Collection } from 'src/app/domain/Collection';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -22,22 +22,36 @@ export class BackupComponent implements OnInit, OnDestroy {
 
   private langChangeSubscription: any;
 
-  constructor(private title: Title, private translate: TranslateService) {
-    this.setTitle();
+  constructor(
+    private title: Title,
+    private translate: TranslateService,
+    private meta: Meta
+  ) {
+    this.setTitleAndDescription();
     this.langChangeSubscription = this.translate.onLangChange.subscribe(
       (event: LangChangeEvent) => {
-        this.setTitle();
+        this.setTitleAndDescription();
       }
     );
   }
 
-  private setTitle() {
+  private setTitleAndDescription() {
     if (this.translate.currentLang === 'it') {
       this.title.setTitle(
         'Fai il backup della tua collezione personale di serie tv'
       );
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Fai il backup della tua collezione personale di serie tv. Puoi esportare il backup sul tuo computer ed importarlo quando vuoi.',
+      });
     } else {
       this.title.setTitle('Backup your personal collection of tvshows');
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Backup your personal collection of tvshows. You can export the backup in your computer and import it when you desire.',
+      });
     }
   }
 

@@ -9,7 +9,7 @@ import {
 import { TmdbService } from 'src/app/services/tmdb.service';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { Collection } from 'src/app/domain/Collection';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -38,21 +38,32 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor(
     private tmdbService: TmdbService,
     private title: Title,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private meta: Meta
   ) {
-    this.setTitle();
+    this.setTitleAndDescription();
     this.langChangeSubscription = this.translate.onLangChange.subscribe(
       (event: LangChangeEvent) => {
-        this.setTitle();
+        this.setTitleAndDescription();
       }
     );
   }
 
-  private setTitle() {
+  private setTitleAndDescription() {
     if (this.translate.currentLang === 'it') {
       this.title.setTitle('Cerca le tue serie tv preferite');
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Cerca le tue serie tv preferite. Guarda informazioni sullo show, cast, stagioni ed episodi.',
+      });
     } else {
       this.title.setTitle('Search your favourites tvshows');
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Search your favourites tvshows. Watch informations about the show, cast, seasons and episodes.',
+      });
     }
   }
 

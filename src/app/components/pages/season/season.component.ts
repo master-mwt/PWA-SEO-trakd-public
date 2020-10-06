@@ -15,7 +15,7 @@ import { TmdbService } from 'src/app/services/tmdb.service';
 import { Collection } from 'src/app/domain/Collection';
 import { Season } from 'src/app/domain/Season';
 import * as $ from 'jquery';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -34,21 +34,42 @@ export class SeasonComponent implements OnInit, OnDestroy {
 
   private langChangeSubscription: any;
 
+  tvShowName: String = '';
+
   constructor(
     private router: Router,
     private location: Location,
     private TmdbService: TmdbService,
     private title: Title,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private meta: Meta
   ) {}
 
-  private setTitle(res) {
+  private setTitleAndDescription(res: Season) {
     if (this.translate.currentLang === 'it') {
       this.title.setTitle(
-        'Guarda informazioni ed episodi della stagione ' + res.name
+        `Trova informazioni ed episodi della stagione ${res.name} ${
+          this.tvShowName !== '' ? 'di ' + this.tvShowName : ''
+        }`
       );
+      this.meta.updateTag({
+        name: 'description',
+        content: `Trova informazioni ed episodi della stagione ${res.name}${
+          this.tvShowName !== '' ? ' della serie tv ' + this.tvShowName : ''
+        }. ${res.overview ? res.overview : ''}`,
+      });
     } else {
-      this.title.setTitle('See info and episodes for season ' + res.name);
+      this.title.setTitle(
+        `Find info and episodes for season ${res.name} ${
+          this.tvShowName !== '' ? 'of ' + this.tvShowName : ''
+        }`
+      );
+      this.meta.updateTag({
+        name: 'description',
+        content: `Find info and episodes for season ${res.name}${
+          this.tvShowName !== '' ? ' of tv show ' + this.tvShowName : ''
+        }. ${res.overview ? res.overview : ''}`,
+      });
     }
   }
 
@@ -74,6 +95,10 @@ export class SeasonComponent implements OnInit, OnDestroy {
   }
 
   private downloadData(tv_show_id, season_number) {
+    this.TmdbService.getTvShowDetails(tv_show_id).subscribe((tvShow) => {
+      this.tvShowName = tvShow.name;
+    });
+
     this.TmdbService.getTvShowSeason(tv_show_id, season_number).subscribe(
       (res) => {
         //id
@@ -81,7 +106,7 @@ export class SeasonComponent implements OnInit, OnDestroy {
         //name
         if (!res.name) res.name = '---';
 
-        this.setTitle(res);
+        this.setTitleAndDescription(res);
 
         //poster_path
         if (res.poster_path) {

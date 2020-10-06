@@ -8,7 +8,7 @@ import {
 import { TmdbService } from 'src/app/services/tmdb.service';
 import { TvShowPreview } from 'src/app/domain/TvShowPreview';
 import { Collection } from 'src/app/domain/Collection';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -34,21 +34,36 @@ export class ExploreComponent implements OnInit, OnDestroy {
     private router: Router,
     private tmdbService: TmdbService,
     private title: Title,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private meta: Meta
   ) {
-    this.setTitle();
+    this.setTitleAndDescription();
     this.langChangeSubscription = this.translate.onLangChange.subscribe(
       (event: LangChangeEvent) => {
-        this.setTitle();
+        this.setTitleAndDescription();
       }
     );
   }
 
-  private setTitle() {
+  private setTitleAndDescription() {
     if (this.translate.currentLang === 'it') {
-      this.title.setTitle('Esplora le serie tv più popolari e le più votate');
+      this.title.setTitle(
+        'Esplora, trova e scopri le serie tv più popolari e più votate'
+      );
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Esplora le serie tv più popolari e più votate. Trova le tue serie tv preferite. Scopri nuove serie tv. Guarda informazioni sullo show, cast, stagioni ed episodi.',
+      });
     } else {
-      this.title.setTitle('Explore popular and top rated tvshows');
+      this.title.setTitle(
+        'Explore, find and discover popular and top rated tvshows'
+      );
+      this.meta.updateTag({
+        name: 'description',
+        content:
+          'Explore, find and discover popular and top rated tvshows. Find your favourites tv shows. Discover new tv shows. Watch informations about the show, cast, seasons and episodes.',
+      });
     }
   }
 
