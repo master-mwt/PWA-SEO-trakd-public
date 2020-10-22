@@ -266,6 +266,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  private resetMarkedEpisodes(): void {
+    for(let season of this.TvShowDetails.seasons) {
+      season.marked_episodes = 0;
+      this.progressBarUpdate(0, season.season_number);
+    }
+  }
+
   addToCollection(): void {
     if (this.tvShowDict) {
       this.tvShowDict[this.TvShowDetails.id] = {
@@ -288,6 +295,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   removeFromCollection(): void {
     if (!!this.tvShowDict && this.tvShowDict[this.TvShowDetails.id]) {
+      this.resetMarkedEpisodes();
       delete this.tvShowDict[this.TvShowDetails.id];
       localStorage.setItem('collection', JSON.stringify(this.tvShowDict));
     }
