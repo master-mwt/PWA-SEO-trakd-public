@@ -9,15 +9,29 @@
         class=""
       />
       <h2 class="mt-2 mb-4">Trakd</h2>
-      <p class="text-muted mb-4">
-        {{ "info_text" | translate }}
+      <p class="text-muted m-0">
+        <a class="text-decoration-none" [routerLink]="['/explore/popular']">Trakd</a> {{ "info_text_p1" | translate }}
       </p>
-      <img
+      <p class="text-muted m-0">
+        {{ "info_text_p2_1" | translate }} <a class="text-decoration-none" [routerLink]="['/collection']">{{ 'info_text_link_collection' | translate }}</a>{{ "info_text_p2_2" | translate }}
+      </p>
+      <p class="text-muted m-0">
+        {{ "info_text_p3_1" | translate }} <a class="text-decoration-none" [routerLink]="['/backup']">Backup</a> {{ "info_text_p3_2" | translate }}
+      </p>
+      <p class="text-muted m-0">
+        <a class="text-decoration-none" [routerLink]="['/explore/top_rated']">{{ 'info_text_link_browse' | translate }}</a> {{ "info_text_p4_1" | translate }}  <a class="text-decoration-none" [routerLink]="['/search']">{{ 'info_text_link_find' | translate }}</a> {{ "info_text_p4_2" | translate }}
+      </p>
+      <p class="text-muted">
+        {{ "info_text_p5_1" | translate }}  <a class="text-decoration-none" href="https://www.themoviedb.org/" target="_blank" rel="nofollow">TMDb</a> {{ "info_text_p5_2" | translate }}
+      </p>
+      <a href="https://developers.themoviedb.org/3" target="_blank" rel="nofollow">
+        <img
         src="assets/imgs/tmdb_logo.svg"
         alt="TMDb - The Movie Database logo"
         width="150"
         class="mt-4"
       />
+      </a>
     </div>
   </div>
 </div>

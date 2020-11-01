@@ -12,6 +12,8 @@ import {
   faTh as faSTh,
   faThList as faSThList,
   faFlag as faSFlag,
+  faLink as faSLink,
+  faExternalLinkAlt as faSExternalLinkAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 import { DOCUMENT } from '@angular/common';
@@ -35,6 +37,8 @@ export class NavbarComponent implements OnInit {
   faSTh = faSTh;
   faSThList = faSThList;
   faSFlag = faSFlag;
+  faSLink = faSLink;
+  faSExternalLinkAlt = faSExternalLinkAlt;
 
   constructor(
     public translate: TranslateService,

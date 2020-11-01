@@ -100,6 +100,39 @@
           </a>
         </li>
 
+        <!-- outbound links -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="outbound_links_dropdown_menu"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <fa-icon [icon]="faSLink" class="mr-1"></fa-icon>
+            {{ "navbar_outbound_links" | translate }}
+          </a>
+          <div
+            class="dropdown-menu bg-dark border-0"
+            aria-labelledby="outbound_links_dropdown_menu"
+          >
+            <a class="dropdown-item" href="https://www.themoviedb.org/" target="_blank" rel="nofollow">
+              <fa-icon [icon]="faSExternalLinkAlt" class="mr-1"></fa-icon>
+              TMDb - The Movie Database
+            </a>
+            <a class="dropdown-item" href="https://trakt.tv/" target="_blank" rel="nofollow">
+              <fa-icon [icon]="faSExternalLinkAlt" class="mr-1"></fa-icon>
+              Trakt.tv
+            </a>
+            <a class="dropdown-item" href="https://www.imdb.com/" target="_blank" rel="nofollow">
+              <fa-icon [icon]="faSExternalLinkAlt" class="mr-1"></fa-icon>
+              IMDb
+            </a>
+          </div>
+        </li>
+        <!-- end outbound links -->
+
         <li class="nav-item">
           <a
             *ngIf="this.translate.currentLang === 'en'"
