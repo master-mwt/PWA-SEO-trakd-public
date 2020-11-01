@@ -114,7 +114,7 @@ export class EpisodeComponent implements OnInit, OnDestroy {
         res.still_path = 'assets/imgs/default.png';
       }
       //overview
-      if (!res.overview) res.overview = 'no description';
+      if (!res.overview) res.overview = this.translate.instant('no_description');;
       //air_date
       if (!res.air_date) res.air_date = '---';
       //season_number
