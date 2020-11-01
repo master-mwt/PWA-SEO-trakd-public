@@ -138,6 +138,11 @@ export class SeasonComponent implements OnInit, OnDestroy {
             if (!episode.episode_number) episode.episode_number = +'---';
             //name
             if (!episode.name) episode.name = '---';
+
+            if(episode.name.length >= 91) {
+              episode.name = episode.name.substring(0, 90) + '...';
+            }
+
             //air_date
             if (!episode.air_date) episode.air_date = '---';
           });
