@@ -57,12 +57,12 @@ export class ExploreComponent implements OnInit, OnDestroy {
       });
     } else {
       this.title.setTitle(
-        'Explore, find and discover popular and top rated tvshows'
+        'Explore, find and discover popular and top rated tv shows'
       );
       this.meta.updateTag({
         name: 'description',
         content:
-          'Explore, find and discover popular and top rated tvshows. Find your favourites tv shows. Discover new tv shows. Watch informations about the show, cast, seasons and episodes.',
+          'Explore, find and discover popular and top rated tv shows. Find your favourite tv shows. Discover new tv shows. Watch information about the show, cast, seasons and episodes.',
       });
     }
   }

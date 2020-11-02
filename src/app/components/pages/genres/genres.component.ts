@@ -23,18 +23,18 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 export class GenresComponent implements OnInit, OnDestroy {
   genres: Genre[] = [];
   sortingTypes: { value: string; name: string }[] = [
-    { value: SortingTypes.POPULARITY_DESC, name: 'Popularity desc' },
-    { value: SortingTypes.POPULARITY_ASC, name: 'Popularity asc' },
-    { value: SortingTypes.FIRST_AIR_DATE_DESC, name: 'First air date desc' },
-    { value: SortingTypes.FIRST_AIR_DATE_ASC, name: 'First air date asc' },
-    { value: SortingTypes.VOTE_AVERAGE_DESC, name: 'Vote average desc' },
-    { value: SortingTypes.VOTE_AVERAGE_ASC, name: 'Vote average asc' },
+    { value: SortingTypes.POPULARITY_DESC, name: this.translate.instant('popularty_desc') },
+    { value: SortingTypes.POPULARITY_ASC, name: this.translate.instant('popularty_asc') },
+    { value: SortingTypes.FIRST_AIR_DATE_DESC, name: this.translate.instant('first_air_date_desc') },
+    { value: SortingTypes.FIRST_AIR_DATE_ASC, name: this.translate.instant('first_air_date_asc') },
+    { value: SortingTypes.VOTE_AVERAGE_DESC, name: this.translate.instant('vote_average_desc') },
+    { value: SortingTypes.VOTE_AVERAGE_ASC, name: this.translate.instant('vote_average_asc') },
   ];
   queryGenreForm = new FormGroup({
     genre: new FormControl(''),
     sortingType: new FormControl(''),
   });
-  tvShows: TvShowPreview[];
+  tvShows: TvShowPreview[] = [];
 
   private page: number = 1;
   private genre: Genre = null;
@@ -68,11 +68,11 @@ export class GenresComponent implements OnInit, OnDestroy {
           'Cerca le tue serie tv preferite per genere. Guarda informazioni sullo show, cast, stagioni ed episodi.',
       });
     } else {
-      this.title.setTitle('Search your favourites tvshows by genre');
+      this.title.setTitle('Search your favourite tv shows by genre');
       this.meta.updateTag({
         name: 'description',
         content:
-          'Search your favourites tvshows by genre. Watch informations about the show, cast, seasons and episodes.',
+          'Search your favourite tv shows by genre. Watch information about the show, cast, seasons and episodes.',
       });
     }
   }
@@ -86,6 +86,14 @@ export class GenresComponent implements OnInit, OnDestroy {
       (event: LangChangeEvent) => {
         this.setTitleAndDescription();
         this.downloadData();
+        this.sortingTypes = [
+          { value: SortingTypes.POPULARITY_DESC, name: this.translate.instant('popularty_desc') },
+          { value: SortingTypes.POPULARITY_ASC, name: this.translate.instant('popularty_asc') },
+          { value: SortingTypes.FIRST_AIR_DATE_DESC, name: this.translate.instant('first_air_date_desc') },
+          { value: SortingTypes.FIRST_AIR_DATE_ASC, name: this.translate.instant('first_air_date_asc') },
+          { value: SortingTypes.VOTE_AVERAGE_DESC, name: this.translate.instant('vote_average_desc') },
+          { value: SortingTypes.VOTE_AVERAGE_ASC, name: this.translate.instant('vote_average_asc') },
+        ];
       }
     );
   }

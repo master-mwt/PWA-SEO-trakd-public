@@ -62,11 +62,11 @@ export class CollectionComponent implements OnInit, OnDestroy {
           'Naviga la tua personale collezione di serie tv. La collezione contiene le serie tv che hai segnato come tue preferite.',
       });
     } else {
-      this.title.setTitle('Browse your personal collection of tvshows');
+      this.title.setTitle('Browse your personal collection of tv shows');
       this.meta.updateTag({
         name: 'description',
         content:
-          'Browse your personal collection of tvshows. The collection contains all the tv shows marked by you as your favourites.',
+          'Browse your personal collection of tv shows. The collection contains all the tv shows marked by you as your favourite.',
       });
     }
   }

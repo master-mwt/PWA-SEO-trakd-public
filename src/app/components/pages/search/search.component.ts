@@ -58,11 +58,11 @@ export class SearchComponent implements OnInit, OnDestroy {
           'Cerca le tue serie tv preferite. Guarda informazioni sullo show, cast, stagioni ed episodi.',
       });
     } else {
-      this.title.setTitle('Search your favourites tvshows');
+      this.title.setTitle('Search your favourite tv shows');
       this.meta.updateTag({
         name: 'description',
         content:
-          'Search your favourites tvshows. Watch informations about the show, cast, seasons and episodes.',
+          'Search your favourite tv shows. Watch information about the show, cast, seasons and episodes.',
       });
     }
   }

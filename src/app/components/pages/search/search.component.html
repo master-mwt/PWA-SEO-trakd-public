@@ -25,6 +25,10 @@
       </div>
     </form>
 
+    <div *ngIf="tvShowPreviews.length === 0" class="row justify-content-center mt-5 text-muted">
+      <h6>{{ 'search_by_title_text_p1' | translate }} <a class="text-decoration-none" [routerLink]="['/genres']">{{ 'Here' | translate }}</a> {{ 'search_by_title_text_p2' | translate }}</h6>
+    </div>
+
     <div class="row justify-content-center">
       <div *ngFor="let t of tvShowPreviews" class="p-2 text-center">
         <div class="tv-show-card card bg-dark text-light hvr-grow">

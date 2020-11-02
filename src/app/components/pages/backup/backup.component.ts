@@ -46,11 +46,11 @@ export class BackupComponent implements OnInit, OnDestroy {
           'Fai il backup della tua collezione personale di serie tv. Puoi esportare il backup sul tuo computer ed importarlo quando vuoi.',
       });
     } else {
-      this.title.setTitle('Backup your personal collection of tvshows');
+      this.title.setTitle('Backup your personal collection of tv shows');
       this.meta.updateTag({
         name: 'description',
         content:
-          'Backup your personal collection of tvshows. You can export the backup in your computer and import it when you desire.',
+          'Backup your personal collection of tv shows. You can export the backup in your computer and import it when you desire.',
       });
     }
   }

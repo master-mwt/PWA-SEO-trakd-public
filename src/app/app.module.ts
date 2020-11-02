@@ -20,6 +20,7 @@ import { GenresComponent } from './components/pages/genres/genres.component';
 import { InfoComponent } from './components/pages/info/info.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AddEscapesPipe } from './components/utils/add-escapes.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     BackupComponent,
     GenresComponent,
     InfoComponent,
+    AddEscapesPipe,
   ],
   imports: [
     BrowserModule,

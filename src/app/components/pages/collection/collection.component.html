@@ -11,11 +11,15 @@
       <input
         class="form-control text-light text-dark search-input-group-bar"
         type="text"
-        placeholder="{{ 'search' | translate }}"
+        placeholder="{{ 'filter' | translate }}"
         aria-label="search"
         [formControl]="query"
       />
     </div>
+  </div>
+
+  <div *ngIf="tvShows.length === 0" class="row justify-content-center mt-5 text-muted">
+    <h6><a class="text-decoration-none" [routerLink]="['/explore/popular']">{{ 'Explore' | translate }}</a> {{ 'collection_text_p1' | translate }} <a class="text-decoration-none" [routerLink]="['/search']">{{ 'Search' | translate }}</a> {{ 'collection_text_p2' | translate }}</h6>
   </div>
 
   <div class="row justify-content-center">
