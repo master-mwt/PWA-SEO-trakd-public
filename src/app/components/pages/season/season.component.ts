@@ -116,7 +116,7 @@ export class SeasonComponent implements OnInit, OnDestroy {
           res.poster_path = 'assets/imgs/default.png';
         }
         //oveview
-        if (!res.overview) res.overview = this.translate.instant('no_description');
+        if (!res.overview) res.overview = `${this.translate.instant('no_description_about')} ${this.tvShowName} - ${res.name}`;
         //season_number
         if (!res.season_number) res.season_number = season_number;
         //episode_number

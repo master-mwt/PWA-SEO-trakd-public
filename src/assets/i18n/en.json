@@ -15,8 +15,9 @@
   "mark_all_as_unseen": "mark all as unseen",
   "add_to_collection": "add to collection",
   "remove_from_collection": "remove from collection",
-  "info": "info about",
+  "info_about": "info about",
   "overview": "overview",
+  "no_description_about": "no description about",
   "no_description": "no description",
   "status": "status",
   "type": "type",
@@ -67,11 +68,10 @@
   "collection_text": "Your collection of favourites tv shows is empty. Try adding a tv show :)",
   "collection_text_p1": "or",
   "collection_text_p2": "new tv shows and add them to your collection.",
-  "search_by_title_text_p1": "Enter the title of the tv series to search for, or click",
-  "search_by_title_text_p2": "to search by genre.",
-  "search_by_genre_text_p1": "Select the genre of the tv series to search and the type of order, or click",
-  "search_by_genre_text_p2": "to search by title.",
+  "search_by_title_text_p1": "Enter the title of the tv series to search for, or perform a",
+  "search_by_genre_text_p1": "Select the genre of the tv series to search and the type of order, or perform a",
   "Explore": "Explore",
   "Search": "Search",
-  "Here": "Here"
+  "search_by_genre": "search by genre",
+  "search_by_title": "search by title"
 }

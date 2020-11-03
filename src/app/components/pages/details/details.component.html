@@ -90,7 +90,7 @@
   <div class="row mb-3">
     <div class="col mx-1">
       <div class="bg-secondary p-1 rounded text-center text-light">
-        <h6 class="m-0">{{ "info" | translate }} {{ TvShowDetails.name }}</h6>
+        <h6 class="m-0">{{ "info_about" | translate }} {{ TvShowDetails.name }}</h6>
       </div>
     </div>
   </div>
@@ -141,7 +141,8 @@
             </td>
             <td class="border-0">
               <a
-                href="javascript:void(0)"
+                [routerLink]="['/genres']"
+                onclick="event.preventDefault();"
                 *ngFor="let g of TvShowDetails.genres"
                 class="text-decoration-none"
                 (click)="searchByGenre(g.id)"
@@ -262,6 +263,7 @@
         <div class="tv-show-card card bg-dark text-light hvr-grow">
           <div class="card-header p-1 m-0 border-0">
             <a
+              class="text-decoration-none"
               href="https://www.imdb.com/search/name/?name={{ c.name | addEscapes }}"
               target="_blank"
               rel="nofollow"
@@ -273,10 +275,11 @@
             width="100%"
             height="200px"
           />
+          <h6 class="card-title text-truncate m-1 text-white pl-2 pr-2">{{ c.name }}</h6>
           </a>
           </div>
-          <div class="card-body p-2 border-0">
-            <h6 class="card-title text-truncate m-0">{{ c.name }}</h6>
+          <div class="card-body p-1 border-0">
+            <!-- <h6 class="card-title text-truncate m-0">{{ c.name }}</h6> -->
             <p class="card-text text-muted text-truncate mb-1">
               {{ c.character }}
             </p>
@@ -299,7 +302,7 @@
       <div *ngFor="let t of tvShowPreviews" class="p-2 text-center">
         <div class="tv-show-card card bg-dark text-light hvr-grow">
           <div class="card-header p-1 m-0 border-0">
-            <a routerLink="/discover/{{ t.id }}/details">
+            <a class="text-decoration-none" routerLink="/discover/{{ t.id }}/details">
               <img
                 src="{{ t.poster_path }}"
                 alt="{{ t.name }}"
@@ -307,10 +310,8 @@
                 width="100%"
                 height="200px"
               />
+              <h6 class="card-title text-truncate mt-2 text-white pl-2 pr-2">{{ t.name }}</h6>
             </a>
-          </div>
-          <div class="card-body p-2 border-0">
-            <h6 class="card-title text-truncate m-0">{{ t.name }}</h6>
           </div>
         </div>
       </div>

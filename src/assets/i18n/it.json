@@ -15,8 +15,9 @@
   "mark_all_as_unseen": "segna tutti come non visti",
   "add_to_collection": "aggiungi alla collezione",
   "remove_from_collection": "rimuovi dalla collezione",
-  "info": "info su",
+  "info_about": "info su",
   "overview": "descrizione",
+  "no_description_about": "nessuna descrizione su",
   "no_description": "nessuna descrizione",
   "status": "stato",
   "type": "tipo",
@@ -66,11 +67,10 @@
   "vote_average_asc": "Voto medio ascendente",
   "collection_text_p1": "o",
   "collection_text_p2": "nuove serie tv e aggiungile alla tua collezione.",
-  "search_by_title_text_p1": "Inserisci il titolo della serie tv da ricercare, oppure clicca",
-  "search_by_title_text_p2": "per effettuare una ricerca per genere.",
-  "search_by_genre_text_p1": "Seleziona il genere della serie tv da ricercare e il tipo di ordinamento, oppure clicca",
-  "search_by_genre_text_p2": "per effettuare una ricerca per titolo.",
+  "search_by_title_text_p1": "Inserisci il titolo della serie tv da ricercare, oppure effettua una",
+  "search_by_genre_text_p1": "Seleziona il genere della serie tv da ricercare e il tipo di ordinamento, oppure effettua una",
   "Explore": "Esplora",
   "Search": "Cerca",
-  "Here": "Qui"
+  "search_by_genre": "ricerca per genere",
+  "search_by_title": "ricerca per titolo"
 }
