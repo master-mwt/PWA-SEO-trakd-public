@@ -11,6 +11,7 @@ import { Collection } from 'src/app/domain/Collection';
 import * as fuzzysort from 'fuzzysort';
 import { Meta, Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-collection',
@@ -96,6 +97,9 @@ export class CollectionComponent implements OnInit, OnDestroy {
         });
         this.tvShows.sort((a, b) => a.name.localeCompare(b.name));
         this.tvShowsAllResults = this.tvShows;
+
+        this.tvShows = _.uniqWith(this.tvShows, _.isEqual);
+        this.tvShowsAllResults = _.uniqWith(this.tvShowsAllResults, _.isEqual);
       });
     });
   }
