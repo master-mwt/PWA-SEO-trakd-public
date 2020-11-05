@@ -55,12 +55,12 @@ export class NavbarComponent implements OnInit {
       if (this.translate.currentLang === 'it') {
         this.meta.updateTag({
           name: 'keywords',
-          content: 'serie tv,telefilm,trakd,esplora,scopri,trova,cerca,popolari,più votati,stagione,episodio'
+          content: 'serie tv, telefilm, trakd, esplora, scopri, trova, cerca, popolari, più votati, stagione, episodio'
         });
       } else {
         this.meta.updateTag({
           name: 'keywords',
-          content: 'tv shows,tv show,tv series,trakd,explore,discover,find,search,popular,top rated,season,episode'
+          content: 'tv show, tv series, trakd, explore, discover, find, search, popular, top rated, season, episode'
         });
       }
     });
