@@ -15,8 +15,9 @@ import {
   faLink as faSLink,
   faExternalLinkAlt as faSExternalLinkAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { DOCUMENT } from '@angular/common';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navbar',
@@ -42,12 +43,27 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     public translate: TranslateService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private meta: Meta
   ) {
     translate.addLangs(['en', 'it']);
     translate.use(translate.getBrowserLang() === 'it' ? 'it' : 'en');
     this.document.documentElement.lang =
       translate.currentLang === 'it' ? 'it' : 'en';
+
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      if (this.translate.currentLang === 'it') {
+        this.meta.updateTag({
+          name: 'keywords',
+          content: 'serie tv,telefilm,trakd,esplora,scopri,trova,cerca,popolari,più votati,stagione,episodio'
+        });
+      } else {
+        this.meta.updateTag({
+          name: 'keywords',
+          content: 'tv shows,tv show,tv series,trakd,explore,discover,find,search,popular,top rated,season,episode'
+        });
+      }
+    });
   }
 
   ngOnInit(): void {}
