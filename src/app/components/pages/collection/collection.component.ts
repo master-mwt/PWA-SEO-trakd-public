@@ -41,6 +41,8 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.refreshCollection();
     this.searchInit();
 
+    localStorage.setItem('lastPage', 'collection');
+
     this.langChangeSubscription = this.translate.onLangChange.subscribe(
       (event: LangChangeEvent) => {
         this.setTitleAndDescription();

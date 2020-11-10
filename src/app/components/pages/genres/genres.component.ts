@@ -80,6 +80,8 @@ export class GenresComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initCollection();
 
+    localStorage.setItem('lastPage', 'genres');
+
     this.downloadData();
 
     this.langChangeSubscription = this.translate.onLangChange.subscribe(

@@ -55,7 +55,9 @@ export class BackupComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    localStorage.setItem('lastPage', 'explore/popular');
+  }
 
   ngOnDestroy(): void {
     this.langChangeSubscription.unsubscribe();

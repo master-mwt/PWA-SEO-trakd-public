@@ -69,6 +69,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initCollection();
+    localStorage.setItem('lastPage', 'search');
   }
 
   ngOnDestroy(): void {

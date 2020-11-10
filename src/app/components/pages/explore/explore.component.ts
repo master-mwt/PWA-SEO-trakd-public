@@ -75,8 +75,10 @@ export class ExploreComponent implements OnInit, OnDestroy {
 
     if (this.urlSection === 'explore,popular') {
       this.getTvShowsPopular();
+      localStorage.setItem('lastPage', 'explore/popular');
     } else if (this.urlSection === 'explore,top_rated') {
       this.getTvShowTopRated();
+      localStorage.setItem('lastPage', 'explore/top_rated');
     }
   }
 

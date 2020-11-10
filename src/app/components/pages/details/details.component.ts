@@ -318,7 +318,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.location.back();
+    let back = localStorage.getItem('lastPage');
+    if (back) {
+      this.router.navigate([back]);
+    } else {
+      this.router.navigate(['explore/popular']);
+    }
   }
 
   searchByGenre(genreId: number): void {

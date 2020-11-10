@@ -15,5 +15,7 @@ export class NotfoundComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    localStorage.setItem('lastPage', 'explore/popular');
+  }
 }
